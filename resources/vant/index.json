@@ -1,0 +1,507 @@
+{
+  "entries": [
+    {
+      "type": "Basic Components",
+      "name": "Button 按钮",
+      "path": "button",
+      "tag": "van-button",
+      "description": "van-button,Button 按钮"
+    },
+    {
+      "type": "Basic Components",
+      "name": "Cell 单元格",
+      "path": "cell",
+      "tag": "van-cell",
+      "description": "van-cell,Cell 单元格"
+    },
+    {
+      "type": "Basic Components",
+      "name": "Icon 图标",
+      "path": "icon",
+      "tag": "van-icon",
+      "description": "van-icon,Icon 图标"
+    },
+    {
+      "type": "Basic Components",
+      "name": "Image 图片",
+      "path": "image",
+      "tag": "van-image",
+      "description": "van-image,Image 图片"
+    },
+    {
+      "type": "Basic Components",
+      "name": "Layout 布局",
+      "path": "col",
+      "tag": "van-row",
+      "description": "van-row,Layout 布局"
+    },
+    {
+      "type": "Basic Components",
+      "name": "Popup 弹出层",
+      "path": "popup",
+      "tag": "van-popup",
+      "description": "van-popup,Popup 弹出层"
+    },
+    {
+      "type": "Basic Components",
+      "name": "Style 内置样式",
+      "path": "style",
+      "tag": "van-style",
+      "description": "van-style,Style 内置样式"
+    },
+    {
+      "type": "Basic Components",
+      "name": "Toast 轻提示",
+      "path": "toast",
+      "tag": "van-toast",
+      "description": "van-toast,Toast 轻提示"
+    },
+    {
+      "type": "Form Components",
+      "name": "Calendar 日历",
+      "path": "calendar",
+      "tag": "van-calendar",
+      "description": "van-calendar,Calendar 日历"
+    },
+    {
+      "type": "Form Components",
+      "name": "Cascader 级联选择",
+      "path": "cascader",
+      "tag": "van-cascader",
+      "description": "van-cascader,Cascader 单选框"
+    },
+    {
+      "type": "Form Components",
+      "name": "Checkbox 复选框",
+      "path": "checkbox",
+      "tag": "van-checkbox",
+      "description": "van-checkbox,Checkbox 复选框"
+    },
+    {
+      "type": "Form Components",
+      "name": "DatetimePicker 时间选择",
+      "path": "datetime-picker",
+      "tag": "van-datetime-picker",
+      "description": "van-datetime-picker,DatetimePicker 时间选择"
+    },
+    {
+      "type": "Form Components",
+      "name": "Field 输入框",
+      "path": "field",
+      "tag": "van-field",
+      "description": "van-input,Field 输入框"
+    },
+    {
+      "type": "Form Components",
+      "name": "Form 表单",
+      "path": "form",
+      "tag": "van-form",
+      "description": "van-form,Form 表单"
+    },
+    {
+      "type": "Form Components",
+      "name": "NumberKeyboard 数字键盘",
+      "path": "number-keyboard",
+      "tag": "van-number-keyboard",
+      "description": "van-number-keyboard,NumberKeyboard 数字键盘"
+    },
+    {
+      "type": "Form Components",
+      "name": "PasswordInput 密码输入框",
+      "path": "password-input",
+      "tag": "van-password-input",
+      "description": "van-password-input,PasswordInput 密码输入框"
+    },
+    {
+      "type": "Form Components",
+      "name": "Picker 选择器",
+      "path": "picker",
+      "tag": "van-picker",
+      "description": "van-picker,Picker 选择器"
+    },
+    {
+      "type": "Form Components",
+      "name": "Radio 单选框",
+      "path": "radio",
+      "tag": "van-radio",
+      "description": "van-radio,Radio 单选框"
+    },
+    {
+      "type": "Form Components",
+      "name": "Rate 评分",
+      "path": "rate",
+      "tag": "van-rate",
+      "description": "van-rate,Rate 评分"
+    },
+    {
+      "type": "Form Components",
+      "name": "Search 搜索",
+      "path": "search",
+      "tag": "van-search",
+      "description": "van-search,Search 搜索"
+    },
+    {
+      "type": "Form Components",
+      "name": "Slider 滑块",
+      "path": "slider",
+      "tag": "van-slider",
+      "description": "van-slider,Slider 滑块"
+    },
+    {
+      "type": "Form Components",
+      "name": "Stepper 步进器",
+      "path": "stepper",
+      "tag": "van-stepper",
+      "description": "van-stepper,Stepper 步进器"
+    },
+    {
+      "type": "Form Components",
+      "name": "Switch 开关",
+      "path": "switch",
+      "tag": "van-switch",
+      "description": "van-switch,Switch 开关"
+    },
+    {
+      "type": "Form Components",
+      "name": "Uploader 文件上传",
+      "path": "uploader",
+      "tag": "van-uploader",
+      "description": "van-uploader,Uploader 文件上传"
+    },
+    {
+      "type": "Action Components",
+      "name": "ActionSheet 动作面板",
+      "path": "action-sheet",
+      "tag": "van-action-sheet",
+      "description": "van-action-sheet,ActionSheet 动作面板"
+    },
+    {
+      "type": "Action Components",
+      "name": "Dialog 弹出框",
+      "path": "dialog",
+      "tag": "van-dialog",
+      "description": "van-dialog,Dialog 弹出框"
+    },
+    {
+      "type": "Action Components",
+      "name": "DropdownMenu 下拉菜单",
+      "path": "dropdown-menu",
+      "tag": "van-dropdown-menu",
+      "description": "van-dropdown-menu,DropdownMenu 下拉菜单"
+    },
+    {
+      "type": "Action Components",
+      "name": "Loading 加载",
+      "path": "loading",
+      "tag": "van-loading",
+      "description": "van-loading,Loading 加载"
+    },
+    {
+      "type": "Action Components",
+      "name": "Notify 消息提示",
+      "path": "notify",
+      "tag": "van-notify",
+      "description": "van-notify,Notify 消息提示"
+    },
+    {
+      "type": "Action Components",
+      "name": "Overlay 遮罩层",
+      "path": "overlay",
+      "tag": "van-overlay",
+      "description": "van-overlay,Overlay 遮罩层"
+    },
+    {
+      "type": "Action Components",
+      "name": "PullRefresh 下拉刷新",
+      "path": "pull-refresh",
+      "tag": "van-pull-refresh",
+      "description": "van-pull-refresh,PullRefresh 下拉刷新"
+    },
+    {
+      "type": "Action Components",
+      "name": "ShareSheet 分享面板",
+      "path": "share-sheet",
+      "tag": "van-share-sheet",
+      "description": "van-share-sheet,ShareSheet 分享面板"
+    },
+    {
+      "type": "Action Components",
+      "name": "SwipeCell 滑动单元格",
+      "path": "swipe-cell",
+      "tag": "van-swipe-cell",
+      "description": "van-swipe-cell,SwipeCell 滑动单元格"
+    },
+    {
+      "type": "Display Components",
+      "name": "Badge 徽标",
+      "path": "badge",
+      "tag": "van-badge",
+      "description": "van-badge,Badge 徽标"
+    },
+    {
+      "type": "Display Components",
+      "name": "Loading 加载",
+      "path": "loading",
+      "tag": "v-loading",
+      "description": "v-loading,Loading 加载"
+    },
+    {
+      "type": "Display Components",
+      "name": "Circle 环形进度条",
+      "path": "circle",
+      "tag": "van-circle",
+      "description": "van-circle,Circle 环形进度条"
+    },
+    {
+      "type": "Display Components",
+      "name": "Collapse 折叠面板",
+      "path": "collapse",
+      "tag": "van-collapse",
+      "description": "van-collapse,Collapse 折叠面板"
+    },
+    {
+      "type": "Display Components",
+      "name": "CountDown 倒计时",
+      "path": "count-down",
+      "tag": "van-count-down",
+      "description": "count-down,CountDown 倒计时"
+    },
+    {
+      "type": "Display Components",
+      "name": "Divider 分割线",
+      "path": "divider",
+      "tag": "van-divider",
+      "description": "van-divider,Divider 分割线"
+    },
+    {
+      "type": "Display Components",
+      "name": "Empty 空状态",
+      "path": "empty",
+      "tag": "van-empty",
+      "description": "van-empty,Empty 空状态"
+    },
+    {
+      "type": "Display Components",
+      "name": "ImagePreview 图片预览",
+      "path": "image-preview",
+      "tag": "van-image-preview",
+      "description": "van-image-preview,ImagePreview 图片预览"
+    },
+    {
+      "type": "Display Components",
+      "name": "Lazyload 懒加载",
+      "path": "lazyload",
+      "tag": "van-lazyload",
+      "description": "van-lazyload,Lazyload 懒加载"
+    },
+    {
+      "type": "Display Components",
+      "name": "List 列表",
+      "path": "list",
+      "tag": "van-list",
+      "description": "van-list,List 列表"
+    },
+    {
+      "type": "Display Components",
+      "name": "NoticeBar 通知栏",
+      "path": "notice-bar",
+      "tag": "van-notice-bar",
+      "description": "van-notice-bar,NoticeBar 通知栏"
+    },
+    {
+      "type": "Display Components",
+      "name": "Popover 气泡弹出框",
+      "path": "popover",
+      "tag": "van-popover",
+      "description": "van-popover,Popover 气泡弹出框"
+    },
+    {
+      "type": "Display Components",
+      "name": "Progress 进度条",
+      "path": "progress",
+      "tag": "van-progress",
+      "description": "van-progress,Progress 进度条"
+    },
+    {
+      "type": "Display Components",
+      "name": "Skeleton 骨架屏",
+      "path": "skeleton",
+      "tag": "van-skeleton",
+      "description": "van-skeleton,Skeleton 骨架屏"
+    },
+    {
+      "type": "Display Components",
+      "name": "Steps 步骤条",
+      "path": "steps",
+      "tag": "van-steps",
+      "description": "van-steps,Steps 步骤条"
+    },
+    {
+      "type": "Display Components",
+      "name": "Sticky 粘性布局",
+      "path": "sticky",
+      "tag": "van-sticky",
+      "description": "van-sticky,Sticky 粘性布局"
+    },
+    {
+      "type": "Display Components",
+      "name": "Swipe 轮播",
+      "path": "swipe",
+      "tag": "van-swipe",
+      "description": "van-swipe,Swipe 轮播"
+    },
+    {
+      "type": "Display Components",
+      "name": "Tag 标签",
+      "path": "tag",
+      "tag": "van-tag",
+      "description": "van-tag,Tag 标签"
+    },
+    {
+      "type": "Navigation Components",
+      "name": "ActionBar 动作栏",
+      "path": "action-bar",
+      "tag": "van-action-bar",
+      "description": "van-action-bar,ActionBar 动作栏"
+    },
+    {
+      "type": "Navigation Components",
+      "name": "Grid 宫格",
+      "path": "grid",
+      "tag": "van-grid",
+      "description": "van-grid,Grid 宫格"
+    },
+    {
+      "type": "Navigation Components",
+      "name": "IndexBar 索引栏",
+      "path": "index-bar",
+      "tag": "van-index-bar",
+      "description": "van-index-bar,IndexBar 索引栏"
+    },
+    {
+      "type": "Navigation Components",
+      "name": "NavBar 导航栏",
+      "path": "nav-bar",
+      "tag": "van-nav-bar",
+      "description": "van-nav-bar,NavBar 导航栏"
+    },
+    {
+      "type": "Navigation Components",
+      "name": "Pagination 分页",
+      "path": "pagination",
+      "tag": "van-pagination",
+      "description": "van-pagination,Pagination 分页"
+    },
+    {
+      "type": "Navigation Components",
+      "name": "Sidebar 侧边导航",
+      "path": "sidebar",
+      "tag": "van-sidebar",
+      "description": "van-sidebar,Sidebar 侧边导航"
+    },
+    {
+      "type": "Navigation Components",
+      "name": "Tab 标签页",
+      "path": "tab",
+      "tag": "van-tab",
+      "description": "van-tab,Tab 标签页"
+    },
+    {
+      "type": "Navigation Components",
+      "name": "Tabbar 标签栏",
+      "path": "tabbar",
+      "tag": "van-tabbar",
+      "description": "van-tabbar,Tabbar 标签栏"
+    },
+    {
+      "type": "Navigation Components",
+      "name": "TreeSelect 分类选择",
+      "path": "tree-select",
+      "tag": "van-tree-select",
+      "description": "van-tree-select,TreeSelect 分类选择"
+    },
+    {
+      "type": "Business Components",
+      "name": "AddressEdit 地址编辑",
+      "path": "address-edit",
+      "tag": "van-address-edit",
+      "description": "van-address-edit,AddressEdit 地址编辑"
+    },
+    {
+      "type": "Business Components",
+      "name": "AddressList 地址列表",
+      "path": "address-list",
+      "tag": "van-address-list",
+      "description": "van-address-list,AddressList 地址列表"
+    },
+    {
+      "type": "Business Components",
+      "name": "Area 省市区选择",
+      "path": "area",
+      "tag": "van-area",
+      "description": "van-area,Area 省市区选择"
+    },
+    {
+      "type": "Business Components",
+      "name": "Card 卡片",
+      "path": "card",
+      "tag": "van-card",
+      "description": "van-card,Card 卡片"
+    },
+    {
+      "type": "Business Components",
+      "name": "ContactCard 联系人卡片",
+      "path": "contact-card",
+      "tag": "van-contact-card",
+      "description": "van-contact-card,ContactCard 联系人卡片"
+    },
+    {
+      "type": "Business Components",
+      "name": "ContactEdit 联系人编辑",
+      "path": "contact-edit",
+      "tag": "van-contact-edit",
+      "description": "van-contact-edit,ContactEdit 联系人编辑"
+    },
+    {
+      "type": "Business Components",
+      "name": "ContactList 联系人列表",
+      "path": "contact-list",
+      "tag": "van-contact-list",
+      "description": "van-contact-list,ContactList 联系人列表"
+    },
+    {
+      "type": "Business Components",
+      "name": "Coupon 优惠券选择器",
+      "path": "coupon",
+      "tag": "van-coupon",
+      "description": "van-coupon,Coupon 优惠券选择器"
+    },
+    {
+      "type": "Business Components",
+      "name": "SubmitBar 提交订单栏",
+      "path": "submit-bar",
+      "tag": "van-submit-bar",
+      "description": "van-submit-bar,SubmitBar 提交订单栏"
+    }
+  ],
+  "types": [
+    {
+      "name": "Basic Components"
+    },
+    {
+      "name": "Form Components"
+    },
+    {
+      "name": "Action Components"
+    },
+    {
+      "name": "Display Components"
+    },
+    {
+      "name": "Navigation Components"
+    },
+    {
+      "name": "Business Components"
+    }
+  ]
+}

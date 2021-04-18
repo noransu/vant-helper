@@ -1,0 +1,10 @@
+[
+  {
+    "type": "vant",
+    "name": "Vant UI",
+    "links": {
+      "home": "https://vant-contrib.gitee.io",
+      "source": "https://github.com/ElemeFE/element"
+    }
+  }
+]
