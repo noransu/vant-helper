@@ -50,7 +50,7 @@
 				},
 				"vant-helper.version": {
 					"type": "string",
-					"default": "v3",
+					"default": "v2",
 					"description": "Document version of Vant UI",
 					"enum": [
 						"v1",

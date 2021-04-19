@@ -61,7 +61,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	let disposable2 = vscode.commands.registerCommand('vant-helper.openWebview', (uri) => {
-		webViewPanel(uri);
+		webViewPanel(uri, context);
 	});
 
 	context.subscriptions.push(app, disposable, disposable2, registration, completion, vueLanguageConfig);

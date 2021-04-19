@@ -3,7 +3,7 @@ import {
   Event, Uri, CancellationToken, TextDocumentContentProvider,
   EventEmitter, workspace, CompletionItemProvider, ProviderResult,
   TextDocument, Position, CompletionItem, CompletionList, CompletionItemKind,
-  SnippetString, Range, version, WebviewPanel
+  SnippetString, Range, version, WebviewPanel, ExtensionContext
 } from 'vscode';
 import Resource from './resource';
 import * as kebabCaseTAGS from '../vetur/tags.json';
@@ -12,6 +12,8 @@ import * as kebabCaseATTRS from '../vetur/attributes.json';
 const prettyHTML = require('pretty');
 const Path = require('path');
 const fs = require('fs');
+
+const isSupportAsWebviewUri = versionCompare(version, '1.39.0');
 
 let TAGS = {};
 for (const key in kebabCaseTAGS) {
@@ -97,7 +99,7 @@ export function decodeDocsUri(uri: Uri): Query {
   return <Query>JSON.parse(uri.query);
 }
 
-export function webViewPanel(uri: Uri) {
+export function webViewPanel(uri: Uri, context: ExtensionContext) {
   const panel: WebviewPanel = window.createWebviewPanel(
     'vantHelper',
     'Vant Helper',
@@ -108,25 +110,24 @@ export function webViewPanel(uri: Uri) {
     }
   );
 
-  const isSupportAsWebviewUri = versionCompare(version, '1.39.0');
   const decodeUri: Query = decodeDocsUri(uri);
 
-  const onDiskFixPath = Uri.file(
-    Path.join(Resource.RESOURCE_PATH, 'vant', `fix.js`)
+  panel.webview.html = HTML_CONTENT(decodeUri, panel, 'v2');
+
+  panel.webview.onDidReceiveMessage(
+    message => {
+      switch (message.command) {
+        case 'changeVersion':
+          let query: Query = {
+            keyword: message.keyword
+          };
+          panel.webview.html = HTML_CONTENT(query, panel, message.text);
+          return;
+      }
+    },
+    undefined,
+    context.subscriptions
   );
-  const onDiskJQueryPath = Uri.file(
-    Path.join(Resource.RESOURCE_PATH, '../node_modules/jquery/dist/jquery.min.js')
-  );
-
-  const fixPath = isSupportAsWebviewUri
-    ? panel.webview.asWebviewUri(onDiskFixPath)
-    : Resource.getExtensionFileVscodeResource(onDiskFixPath);
-
-  const jqueryPath = isSupportAsWebviewUri
-    ? panel.webview.asWebviewUri(onDiskJQueryPath)
-    : Resource.getExtensionFileVscodeResource(onDiskJQueryPath);
-  panel.webview.html = HTML_CONTENT(decodeUri, fixPath, jqueryPath);
-
 
   // 3. 可以通过设置 panel.onDidDispose，让 webView 在关闭时执行一些清理工作。
   // panel.onDidDispose(
@@ -136,6 +137,19 @@ export function webViewPanel(uri: Uri) {
   //   null,
   //   context.subscriptions
   // );
+}
+
+function getWebViewContent(panel: WebviewPanel, version: string = 'v2') {
+  const resourcePath = Path.join(Resource.RESOURCE_PATH, 'libs', `${version}/index.html`);
+  let dirPath = Resource.RESOURCE_PATH + `/libs/${version}`
+  let html = fs.readFileSync(resourcePath, 'utf-8');
+
+  html = html.replace(/(<link.+?href="|<script.+?src="|<img.+?src=")(.+?)"/g, (m, $1, $2) => {
+    return isSupportAsWebviewUri
+      ? $1 + panel.webview.asWebviewUri(Uri.file(Path.resolve(dirPath, $2))).toString() + '"'
+      : $1 + Uri.file(Path.resolve(dirPath, $2)).with({ scheme: 'vscode-resource' }).toString() + '"';
+  });
+  return html;
 }
 
 export class App {
@@ -187,7 +201,7 @@ export class App {
   }
 }
 
-const HTML_CONTENT = (query: Query, fixPath: string | Uri, jqueryPath: string | Uri) => {
+const HTML_CONTENT = (query: Query, panel: WebviewPanel, getVersion: string = 'v2') => {
   const filename = Path.join(__dirname, '../', 'package.json');
   const data = fs.readFileSync(filename, 'utf8');
   const content = JSON.parse(data);
@@ -196,7 +210,10 @@ const HTML_CONTENT = (query: Query, fixPath: string | Uri, jqueryPath: string | 
   const config = workspace.getConfiguration('vant-helper');
   const language = <string>config.get('language');
   const version = config.get('version');
+
   let versionText = version === 'v2' ? '' : `${version}/`;
+
+  let localHtml = getWebViewContent(panel, getVersion);
 
   let opts = ['<select class="docs-version">'];
   let selected = '';
@@ -209,8 +226,21 @@ const HTML_CONTENT = (query: Query, fixPath: string | Uri, jqueryPath: string | 
 
   const path = query.keyword;
   const style = fs.readFileSync(Path.join(Resource.RESOURCE_PATH, 'style.css'), 'utf-8');
-  const jqScript = `<script type="text/javascript" src="${jqueryPath}"></script>`;
-  const fixScript = `<script type="text/javascript" src="${fixPath}"></script>`;
+
+  const onDiskFixPath = Uri.file(
+    Path.join(Resource.RESOURCE_PATH, 'vant', `fix.js`)
+  );
+  const onDiskJQueryPath = Uri.file(
+    Path.join(Resource.RESOURCE_PATH, '../node_modules/jquery/dist/jquery.min.js')
+  );
+
+  const fixPath = isSupportAsWebviewUri
+    ? panel.webview.asWebviewUri(onDiskFixPath)
+    : Resource.getExtensionFileVscodeResource(onDiskFixPath);
+
+  const jqueryPath = isSupportAsWebviewUri
+    ? panel.webview.asWebviewUri(onDiskJQueryPath)
+    : Resource.getExtensionFileVscodeResource(onDiskJQueryPath);
 
   const componentPath = `vant/${versionText}#/${language}/${path}`;
   const href = Resource.VANT_HOME_URL;
@@ -221,64 +251,70 @@ const HTML_CONTENT = (query: Query, fixPath: string | Uri, jqueryPath: string | 
     'en-US': `Version: ${html}, view online examples in <a href="${iframeSrc}">browser</a>`,
   })[language];
 
-  return `<!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-      <title>Document</title>
-      <style type="text/css">${style}</style>
-    </head>
-    <body class="element-helper-docs-container">
-    <div class="element-helper-move-mask"></div>
-    <div class="element-helper-loading-mask">
-      <div class="element-helper-loading-spinner">
-        <svg viewBox="25 25 50 50" class="circular">
-          <circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
-        </svg>
-      </div>
-    </div>
-    <div class="docs-notice">${notice}</div>
-    <iframe id="docs-frame" src="${iframeSrc}"></iframe>
-    ${jqScript}
-    ${fixScript}
-    <script>
-      var iframe = document.querySelector('#docs-frame');
-      var link = document.querySelector('.docs-notice a');
-      var options = document.querySelectorAll('.docs-version--option')
-      window.addEventListener('message', (e) => {
-        e.data.loaded && (document.querySelector('.element-helper-loading-mask').style.display = 'none');
-        if(e.data.hash) {
-          var pathArr = link.href.split('#');
-          pathArr.pop();
-          pathArr.push(e.data.hash);
-          link.href = pathArr.join('#');
-          var srcArr = iframe.src.split('#');
-          srcArr.pop();
-          srcArr.push(e.data.hash);
-          iframe.src = srcArr.join('#');
+  const noticeScript = `<div class="docs-notice">${notice}</div>`;
+  const styleScript = `<style type="text/css">${style}</style>`;
+  const jqScript = `<script type="text/javascript" src="${jqueryPath}"></script>`;
+  const fixScript = `<script type="text/javascript" src="${fixPath}"></script>`;
+
+  localHtml = localHtml.replace('<!-- STYLE -->', styleScript)
+    .replace('<!-- NOTICE -->', noticeScript)
+    .replace('<!-- JQUERY -->', jqScript)
+    .replace('<!-- FIX -->', fixScript)
+    .replace('<!-- LOGIC -->', `<script>
+    var vscode = acquireVsCodeApi();
+    var mobileIframe = null;
+    window.addEventListener('message', (e) => {
+      e.data.loaded && (document.querySelector('.element-helper-loading-mask').style.display = 'none');
+      var hrefArr = document.querySelectorAll(".van-doc-nav__item a");
+      var mobileIframeWrap = document.querySelector('.van-doc-simulator');
+      mobileIframe = document.querySelector('.van-doc-simulator iframe');
+      mobileIframeWrap.style.minHeight = '560px';
+      mobileIframe.src = 'https://vant-contrib.gitee.io/vant/mobile.html#/${language}/${path}';
+      for (let index = 0; index < hrefArr.length; index++) {
+        if(hrefArr[index].attributes.href.value === '#/${language}/${path}'){
+          hrefArr[index].click();
         }
-      }, false);
-      document.querySelector('.docs-version').addEventListener('change', function(event) {
-        var version = options[this.selectedIndex].value;
-        var originalSrc = iframe.src;
-        var arr = originalSrc.split(new RegExp('/v[0-9]+/'));
-        var src = '';
-        if(version === 'v2') {
-          src = arr.join('/');
-        } else if (version !== 'v2' && arr.length > 1) {
-          src = arr.join('/' + version + '/');
-        } else {
-          src = originalSrc.split(new RegExp('/vant/')).join("/vant/" + version + '/')
-        }
-        iframe.src = src;
-      }, false);
-    </script>
-    </body>
-  </html>
-    `;
+      }
+    }, false);
+    var options = document.querySelectorAll('.docs-version--option')
+    document.querySelector('.docs-version').addEventListener('change', function(event) {
+      var version = options[this.selectedIndex].value;
+      vscode.postMessage({
+        command: 'changeVersion',
+        text: version,
+        keyword: ${path}
+      })
+    }, false);
+  </script>`);
+
+  return localHtml;
 };
+
+// https://vant-contrib.gitee.io/vant/mobile.html#/zh-CN/cell mobile iframe
+
+// <iframe id="docs-frame" src="${iframeSrc}"></iframe>
+//     <script>
+//       var iframe = document.querySelector('#docs-frame');
+//       var link = document.querySelector('.docs-notice a');
+//       var options = document.querySelectorAll('.docs-version--option')
+//       window.addEventListener('message', (e) => {
+//         e.data.loaded && (document.querySelector('.element-helper-loading-mask').style.display = 'none');
+//       }, false);
+//       document.querySelector('.docs-version').addEventListener('change', function(event) {
+//         var version = options[this.selectedIndex].value;
+//         var originalSrc = iframe.src;
+//         var arr = originalSrc.split(new RegExp('/v[0-9]+/'));
+//         var src = '';
+//         if(version === 'v2') {
+//           src = arr.join('/');
+//         } else if (version !== 'v2' && arr.length > 1) {
+//           src = arr.join('/' + version + '/');
+//         } else {
+//           src = originalSrc.split(new RegExp('/vant/')).join("/vant/" + version + '/')
+//         }
+//         iframe.src = src;
+//       }, false);
+//     </script>
 
 export class ElementDocsContentProvider implements TextDocumentContentProvider {
   private _onDidChange = new EventEmitter<Uri>();

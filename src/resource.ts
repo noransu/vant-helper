@@ -14,25 +14,6 @@ export default class Resource {
   static RESOURCE_PATH: string = Path.join(__dirname, '../', 'resources');
   // static ELEMENT_PATH: string = Path.join(__dirname, '..', '..', 'node_modules', 'element-gh-pages');
   static URL_REG: RegExp = /((?:src|href)\s*=\s*)(['"])(\/\/[^'"]*)\2/g;
-  // {
-  //   "1.4.13": "1.4",
-  //   "2.0.11": "2.0",
-  //   "2.1.0": "2.1",
-  //   "2.2.2": "2.2",
-  //   "2.3.9": "2.3",
-  //   "2.4.11": "2.4",
-  //   "2.5.4": "2.5",
-  //   "2.6.3": "2.6",
-  //   "2.7.2": "2.7",
-  //   "2.8.2": "2.8",
-  //   "2.9.2": "2.9",
-  //   "2.10.1": "2.10",
-  //   "2.11.1": "2.11",
-  //   "2.12.0": "2.12",
-  //   "2.13.2": "2.13",
-  //   "2.14.1": "2.14",
-  //   "2.15.1": "2.15"
-  //   }
   // static ELEMENT_VERSION_URL: string = 'https://element.eleme.io/versions.json';
   static VANT_HOME_URL: string = 'https://vant-contrib.gitee.io/';
   static RESOURCE_REPO: string = 'repos.json';

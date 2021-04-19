@@ -17,6 +17,8 @@
         "semi": "off"
     },
     "ignorePatterns": [
-        "**/*.d.ts"
+        "**/*.d.ts",
+        "**/*.js",
+        "**/*.min.js"
     ]
 }
