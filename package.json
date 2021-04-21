@@ -3,6 +3,10 @@
 	"displayName": "vant-helper",
 	"description": "A vscode extension for Vant-UI",
 	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/noransu/vant-helper"
+	},
 	"engines": {
 		"vscode": "^1.30.0"
 	},
