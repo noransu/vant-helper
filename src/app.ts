@@ -1,9 +1,8 @@
 import {
-  window, commands, ViewColumn, Disposable,
-  Event, Uri, CancellationToken, TextDocumentContentProvider,
-  EventEmitter, workspace, CompletionItemProvider, ProviderResult,
+  window, commands, ViewColumn, Disposable, Uri, CancellationToken,
+  workspace, CompletionItemProvider, ProviderResult,
   TextDocument, Position, CompletionItem, CompletionList, CompletionItemKind,
-  SnippetString, Range, version, WebviewPanel, ExtensionContext
+  SnippetString, Range, version, Webview
 } from 'vscode';
 import Resource from './resource';
 import * as kebabCaseTAGS from '../vetur/tags.json';
@@ -52,14 +51,13 @@ function toUpperCase(key: string): string {
 }
 
 function versionCompare(v1: string, v2: string): boolean {
-  // 去掉收尾空格
+
   v1 = v1.replace(/(^\s+)|(\s+$)/gi, '');
   v2 = v2.replace(/(^\s+)|(\s+$)/gi, '');
 
-  // 截取v1,v2中的版本数字
   v1 = /\d(\.|\d)*\d/gi.exec(v1)[0];
   v2 = /\d(\.|\d)*\d/gi.exec(v2)[0];
-  // 版本比较，我们分为三个数组然后比较
+
   const arr1 = v1.split('.');
   const newArr1 = arr1.map(item => parseInt(item, 10));
   const arr2 = v2.split('.');
@@ -99,54 +97,14 @@ export function decodeDocsUri(uri: Uri): Query {
   return <Query>JSON.parse(uri.query);
 }
 
-export function webViewPanel(uri: Uri, context: ExtensionContext) {
-  const panel: WebviewPanel = window.createWebviewPanel(
-    'vantHelper',
-    'Vant Helper',
-    ViewColumn.Two, // web view 显示位置
-    {
-      enableScripts: true, // 允许 JavaScript
-      retainContextWhenHidden: true // 在 hidden 的时候保持不关闭
-    }
-  );
-
-  const decodeUri: Query = decodeDocsUri(uri);
-
-  panel.webview.html = HTML_CONTENT(decodeUri, panel, 'v2');
-
-  panel.webview.onDidReceiveMessage(
-    message => {
-      switch (message.command) {
-        case 'changeVersion':
-          let query: Query = {
-            keyword: message.keyword
-          };
-          panel.webview.html = HTML_CONTENT(query, panel, message.text);
-          return;
-      }
-    },
-    undefined,
-    context.subscriptions
-  );
-
-  // 3. 可以通过设置 panel.onDidDispose，让 webView 在关闭时执行一些清理工作。
-  // panel.onDidDispose(
-  //   () => {
-  //     clearInterval(interval);
-  //   },
-  //   null,
-  //   context.subscriptions
-  // );
-}
-
-function getWebViewContent(panel: WebviewPanel, version: string = 'v2') {
+function getWebViewContent(webview: Webview, version: string = 'v2') {
   const resourcePath = Path.join(Resource.RESOURCE_PATH, 'libs', `${version}/index.html`);
   let dirPath = Resource.RESOURCE_PATH + `/libs/${version}`
   let html = fs.readFileSync(resourcePath, 'utf-8');
 
-  html = html.replace(/(<link.+?href="|<script.+?src="|<img.+?src=")(.+?)"/g, (m, $1, $2) => {
+  html = html.replace(/(<link.+?href="|<script.+?src=")(.+?)"/g, (m, $1, $2) => {
     return isSupportAsWebviewUri
-      ? $1 + panel.webview.asWebviewUri(Uri.file(Path.resolve(dirPath, $2))).toString() + '"'
+      ? $1 + webview.asWebviewUri(Uri.file(Path.resolve(dirPath, $2))).toString() + '"'
       : $1 + Uri.file(Path.resolve(dirPath, $2)).with({ scheme: 'vscode-resource' }).toString() + '"';
   });
   return html;
@@ -186,7 +144,6 @@ export class App {
   openHtml(uri: Uri, title) {
     return commands.executeCommand('vant-helper.openWebview', uri, title, ViewColumn.Two)
       .then((success) => {
-        console.log("success");
       }, (reason) => {
         window.showErrorMessage(reason);
       });
@@ -201,24 +158,22 @@ export class App {
   }
 }
 
-const HTML_CONTENT = (query: Query, panel: WebviewPanel, getVersion: string = 'v2') => {
+export const HTML_CONTENT = (query: Query, webview: Webview, getVersion: string = 'v2') => {
   const filename = Path.join(__dirname, '../', 'package.json');
   const data = fs.readFileSync(filename, 'utf8');
   const content = JSON.parse(data);
   const versions = content.contributes.configuration.properties['vant-helper.version']['enum'];
-  const lastVersion = versions[versions.length - 1];
   const config = workspace.getConfiguration('vant-helper');
   const language = <string>config.get('language');
-  const version = config.get('version');
 
-  let versionText = version === 'v2' ? '' : `${version}/`;
+  let versionText = getVersion === 'v2' ? '' : `${getVersion}/`;
 
-  let localHtml = getWebViewContent(panel, getVersion);
+  let localHtml = getWebViewContent(webview, getVersion);
 
   let opts = ['<select class="docs-version">'];
   let selected = '';
   versions.forEach(item => {
-    selected = item === version ? ' selected="selected"' : '';
+    selected = item === getVersion ? ' selected="selected"' : '';
     opts.push(`<option${selected} value ="${item}" class="docs-version--option">${item}</option>`);
   });
   opts.push('</select>');
@@ -235,54 +190,69 @@ const HTML_CONTENT = (query: Query, panel: WebviewPanel, getVersion: string = 'v
   );
 
   const fixPath = isSupportAsWebviewUri
-    ? panel.webview.asWebviewUri(onDiskFixPath)
+    ? webview.asWebviewUri(onDiskFixPath)
     : Resource.getExtensionFileVscodeResource(onDiskFixPath);
 
   const jqueryPath = isSupportAsWebviewUri
-    ? panel.webview.asWebviewUri(onDiskJQueryPath)
+    ? webview.asWebviewUri(onDiskJQueryPath)
     : Resource.getExtensionFileVscodeResource(onDiskJQueryPath);
 
   const componentPath = `vant/${versionText}#/${language}/${path}`;
   const href = Resource.VANT_HOME_URL;
   const iframeSrc = `${href}${componentPath}`;
 
+  const detailVersion = ({
+    'v2': '2.12.14',
+    'v3': '3.0.14',
+  })[getVersion];
+
   const notice = ({
-    'zh-CN': `版本：${html}，在线示例请在浏览器中<a href="${iframeSrc}">查看</a>`,
-    'en-US': `Version: ${html}, view online examples in <a href="${iframeSrc}">browser</a>`,
+    'zh-CN': `版本：${detailVersion} ${html}，最新版本及在线示例请在浏览器中<a href="${iframeSrc}">查看</a>`,
+    'en-US': `Version: ${detailVersion} ${html}, view online examples and latest edition in <a href="${iframeSrc}">browser</a>`,
   })[language];
 
   const noticeScript = `<div class="docs-notice">${notice}</div>`;
   const styleScript = `<style type="text/css">${style}</style>`;
   const jqScript = `<script type="text/javascript" src="${jqueryPath}"></script>`;
   const fixScript = `<script type="text/javascript" src="${fixPath}"></script>`;
-
   localHtml = localHtml.replace('<!-- STYLE -->', styleScript)
     .replace('<!-- NOTICE -->', noticeScript)
     .replace('<!-- JQUERY -->', jqScript)
     .replace('<!-- FIX -->', fixScript)
     .replace('<!-- LOGIC -->', `<script>
     var vscode = acquireVsCodeApi();
-    var mobileIframe = null;
     window.addEventListener('message', (e) => {
-      e.data.loaded && (document.querySelector('.element-helper-loading-mask').style.display = 'none');
-      var hrefArr = document.querySelectorAll(".van-doc-nav__item a");
-      var mobileIframeWrap = document.querySelector('.van-doc-simulator');
-      mobileIframe = document.querySelector('.van-doc-simulator iframe');
-      mobileIframeWrap.style.minHeight = '560px';
-      mobileIframe.src = 'https://vant-contrib.gitee.io/vant/mobile.html#/${language}/${path}';
-      for (let index = 0; index < hrefArr.length; index++) {
-        if(hrefArr[index].attributes.href.value === '#/${language}/${path}'){
-          hrefArr[index].click();
+      location.hash = '/${language}';
+      if(e.data.loaded) {
+        var hrefArr = document.querySelectorAll(".van-doc-nav__item a");
+        var mobileIframeWrap = document.querySelector('.van-doc-simulator');
+        var mobileIframe = document.querySelector('.van-doc-simulator iframe');
+        mobileIframeWrap.style.minHeight = '560px';
+        document.querySelector('.vant-helper-loading-mask').style.display = 'none';
+        document.querySelector('.vant-helper-docs-container').classList.remove('fixed');
+        mobileIframe.src = 'https://vant-contrib.gitee.io/vant/mobile.html#/${language}/${path}';
+        for (let index = 0; index < hrefArr.length; index++) {
+          if (hrefArr[index].attributes.href.value === '#/${language}/${path}'){
+            hrefArr[index].click();
+          }
+        }
+      };
+      if(e.data.command && e.data.command.keyword) {
+        var hrefArr = document.querySelectorAll(".van-doc-nav__item a");
+        var mobileIframe = document.querySelector('.van-doc-simulator iframe');
+        mobileIframe.src = 'https://vant-contrib.gitee.io/vant/mobile.html#/${language}/' + e.data.command.keyword;
+        for (let index = 0; index < hrefArr.length; index++) {
+          (hrefArr[index].attributes.href.value === '#/${language}/' + e.data.command.keyword) && hrefArr[index].click();
         }
       }
     }, false);
-    var options = document.querySelectorAll('.docs-version--option')
+    var options = document.querySelectorAll('.docs-version--option');
     document.querySelector('.docs-version').addEventListener('change', function(event) {
       var version = options[this.selectedIndex].value;
       vscode.postMessage({
         command: 'changeVersion',
         text: version,
-        keyword: ${path}
+        keyword: '${path}'
       })
     }, false);
   </script>`);
@@ -290,56 +260,12 @@ const HTML_CONTENT = (query: Query, panel: WebviewPanel, getVersion: string = 'v
   return localHtml;
 };
 
-// https://vant-contrib.gitee.io/vant/mobile.html#/zh-CN/cell mobile iframe
-
-// <iframe id="docs-frame" src="${iframeSrc}"></iframe>
-//     <script>
-//       var iframe = document.querySelector('#docs-frame');
-//       var link = document.querySelector('.docs-notice a');
-//       var options = document.querySelectorAll('.docs-version--option')
-//       window.addEventListener('message', (e) => {
-//         e.data.loaded && (document.querySelector('.element-helper-loading-mask').style.display = 'none');
-//       }, false);
-//       document.querySelector('.docs-version').addEventListener('change', function(event) {
-//         var version = options[this.selectedIndex].value;
-//         var originalSrc = iframe.src;
-//         var arr = originalSrc.split(new RegExp('/v[0-9]+/'));
-//         var src = '';
-//         if(version === 'v2') {
-//           src = arr.join('/');
-//         } else if (version !== 'v2' && arr.length > 1) {
-//           src = arr.join('/' + version + '/');
-//         } else {
-//           src = originalSrc.split(new RegExp('/vant/')).join("/vant/" + version + '/')
-//         }
-//         iframe.src = src;
-//       }, false);
-//     </script>
-
-export class ElementDocsContentProvider implements TextDocumentContentProvider {
-  private _onDidChange = new EventEmitter<Uri>();
-
-  get onDidChange(): Event<Uri> {
-    return this._onDidChange.event;
-  }
-
-  public update(uri: Uri) {
-    this._onDidChange.fire(uri);
-  }
-
-  provideTextDocumentContent(uri: Uri, token: CancellationToken): string | Thenable<string> {
-    return HTML_CONTENT(decodeDocsUri(uri));
-  }
-}
-
 export class ElementCompletionItemProvider implements CompletionItemProvider {
   private _document: TextDocument;
   private _position: Position;
   private tagReg: RegExp = /<([\w-]+)\s*/g;
   private attrReg: RegExp = /(?:\(|\s*)(\w+)=['"][^'"]*/;
   private tagStartReg: RegExp = /<([\w-]*)$/;
-  private pugTagStartReg: RegExp = /^\s*[\w-]*$/;
-  private size: number;
   private quotes: string;
 
   getPreTag(): TagObject | undefined {
@@ -352,7 +278,6 @@ export class ElementCompletionItemProvider implements CompletionItemProvider {
         txt = this._document.lineAt(line).text;
       }
       tag = this.matchTag(this.tagReg, txt, line);
-
       if (tag === 'break') return;
       if (tag) return <TagObject>tag;
       line--;
@@ -471,7 +396,7 @@ export class ElementCompletionItemProvider implements CompletionItemProvider {
     return {
       label: tag,
       sortText: `0${id}${tag}`,
-      insertText: new SnippetString(prettyHTML('<' + snippets.join(''), { indent_size: this.size }).substr(1)),
+      insertText: new SnippetString(prettyHTML('<' + snippets.join('')).substr(1)),
       kind: CompletionItemKind.Snippet,
       detail: `vant-ui ${tagVal.version ? `(version: ${tagVal.version})` : ''}`,
       documentation: tagVal.description ? tagVal.description : '',
@@ -484,7 +409,7 @@ export class ElementCompletionItemProvider implements CompletionItemProvider {
         label: attr,
         insertText: (type && (type === 'flag')) ? `${attr} ` : new SnippetString(`${attr}=${this.quotes}$1${this.quotes}$0`),
         kind: (type && (type === 'method')) ? CompletionItemKind.Method : CompletionItemKind.Property,
-        detail: tag ? `<${tag}> ${version ? `(version: ${version})` : ''}` : `element-ui ${version ? `(version: ${version})` : ''}`,
+        detail: tag ? `<${tag}> ${version ? `(version: ${version})` : ''}` : `vant-ui ${version ? `(version: ${version})` : ''}`,
         documentation: description
       };
     } else { return; }
@@ -526,7 +451,7 @@ export class ElementCompletionItemProvider implements CompletionItemProvider {
 
   isTagStart() {
     let txt = this.getTextBeforePosition(this._position);
-    return this.isPug() ? this.pugTagStartReg.test(txt) : this.tagStartReg.test(txt);
+    return this.tagStartReg.test(txt);
   }
 
   firstCharsEqual(str1: string, str2: string) {
@@ -552,12 +477,9 @@ export class ElementCompletionItemProvider implements CompletionItemProvider {
     this._position = position;
 
     const config = workspace.getConfiguration('vant-helper');
-    this.size = config.get('indent-size');
     const normalQuotes = config.get('quotes') === 'double' ? '"' : "'";
-    const pugQuotes = config.get('pug-quotes') === 'double' ? '"' : "'";
-    this.quotes = this.isPug() ? pugQuotes : normalQuotes;
-
-    let tag: TagObject | string | undefined = this.isPug() ? this.getPugTag() : this.getPreTag();
+    this.quotes = normalQuotes;
+    let tag: TagObject | string | undefined = this.getPreTag();
     let attr = this.getPreAttr();
     if (this.isAttrValueStart(tag, attr)) {
       return this.getAttrValueSuggestion(tag.text, attr);
@@ -565,79 +487,11 @@ export class ElementCompletionItemProvider implements CompletionItemProvider {
       return this.getAttrSuggestion(tag.text);
     } else if (this.isTagStart()) {
       switch (document.languageId) {
-        // case 'jade':
-        // case 'pug':
-        //   return this.getPugTagSuggestion();
         case 'vue':
-          // if (this.isPug()) {
-          //   return this.getPugTagSuggestion();
-          // }
           return this.notInTemplate() ? [] : this.getTagSuggestion();
         case 'html':
-          // todo
           return this.getTagSuggestion();
       }
     } else { return []; }
-  }
-
-  isPug(): boolean {
-    if (['pug', 'jade'].includes(this._document.languageId)) {
-      return true;
-    } else {
-      var range = new Range(new Position(0, 0), this._position);
-      let txt = this._document.getText(range);
-      return /<template[^>]*\s+lang=['"](jade|pug)['"].*/.test(txt);
-    }
-  }
-
-  getPugTagSuggestion() {
-    let suggestions = [];
-
-    for (let tag in TAGS) {
-      suggestions.push(this.buildPugTagSuggestion(tag, TAGS[tag]));
-    }
-    return suggestions;
-  }
-
-  buildPugTagSuggestion(tag, tagVal) {
-    const snippets = [];
-    let index = 0;
-    let that = this;
-    function build(tag, { subtags, defaults }, snippets) {
-      let attrs = [];
-      defaults && defaults.forEach((item, i) => {
-        attrs.push(`${item}=${that.quotes}$${index + i + 1}${that.quotes}`);
-      });
-      snippets.push(`${' '.repeat(index * that.size)}${tag}(${attrs.join(' ')})`);
-      index++;
-      subtags && subtags.forEach(item => build(item, TAGS[item], snippets));
-    };
-    build(tag, tagVal, snippets);
-    return {
-      label: tag,
-      insertText: new SnippetString(snippets.join('\n')),
-      kind: CompletionItemKind.Snippet,
-      detail: 'vant-ui',
-      documentation: tagVal.description
-    };
-  }
-
-  getPugTag(): TagObject | undefined {
-    let line = this._position.line;
-    let tag: TagObject | string;
-    let txt = '';
-
-    while (this._position.line - line < 10 && line >= 0) {
-      txt = this._document.lineAt(line).text;
-      let match = /^\s*([\w-]+)[.#-\w]*\(/.exec(txt);
-      if (match) {
-        return {
-          text: match[1],
-          offset: this._document.offsetAt(new Position(line, match.index))
-        };
-      }
-      line--;
-    }
-    return;
   }
 }

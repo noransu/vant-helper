@@ -1,37 +1,30 @@
 {
-  "message": {
-    "prefix": "msg",
+  "vant-toast": {
+    "prefix": "toast",
     "body": [
-      "this.\\$message({",
-      "\tmessage: '${1:text}',",
-      "\ttype: '${2:info}'",
-      "});"
+      "this.\\$toast({",
+      "\tmessage: '${1:Content}',",
+      "})"
     ],
-    "description": "message"
+    "description": "toast"
   },
-  "msgbox-alert": {
-    "prefix": "alert",
+  "vant-dialog": {
+    "prefix": "dialog",
     "body": [
-      "this.\\$alert('${1:content}', '${2:title}', {",
-      "\tconfirmButtonText: '${3:confirm}',",
-      "\tcallback: ${4:action} => {",
-      "\t\t",
-      "\t}",
-      "});"
+      "this.\\$dialog.alert({",
+      "\tmessage: '${1:Content}',",
+      "})"
     ],
     "description": "alert"
   },
-  "msgbox-confirm": {
-    "prefix": "confirm",
+  "vant-notify": {
+    "prefix": "notify",
     "body": [
-      "this.\\$confirm('${1:content}', '${2:title}', {",
-      "\tconfirmButtonText: '${3:confirm}',",
-      "\tcancelButtonText: '${4:cancel}',",
-      "\ttype: '${5:warning}'",
-      "}).then(() => {",
-      "\t",
-      "}).catch(() => {});"
+      "this.\\$notify({",
+      "\ttype: '${1:primary}',",
+      "\tmessage: '${2:Content}',",
+      "})"
     ],
-    "description": "confirm"
-  },
+    "description": "notify"
+  }
 }

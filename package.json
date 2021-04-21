@@ -4,7 +4,7 @@
 	"description": "vant-ui 辅助插件",
 	"version": "0.0.1",
 	"engines": {
-		"vscode": "^1.55.0"
+		"vscode": "^1.30.0"
 	},
 	"categories": [
 		"Other"
@@ -15,6 +15,7 @@
 		"onCommand:vant-helper.searchUnderCursor"
 	],
 	"main": "./dist/extension.js",
+	"icon": "vant-helper.png",
 	"contributes": {
 		"commands": [
 			{
@@ -25,7 +26,8 @@
 		"keybindings": [
 			{
 				"command": "vant-helper.searchUnderCursor",
-				"key": "ctrl+cmd+z",
+				"key": "ctrl+shift+z",
+				"mac": "cmd+shift+z",
 				"when": "editorTextFocus"
 			}
 		],
@@ -53,15 +55,9 @@
 					"default": "v2",
 					"description": "Document version of Vant UI",
 					"enum": [
-						"v1",
 						"v2",
 						"v3"
 					]
-				},
-				"vant-helper.indent-size": {
-					"type": "number",
-					"default": 2,
-					"description": "Indentation size of snippets"
 				},
 				"vant-helper.quotes": {
 					"type": "string",

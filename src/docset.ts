@@ -22,7 +22,6 @@ class DocSet {
     Resource.get(Path.join(Resource.RESOURCE_PATH, this.indexPath))
       .then((result: string) => {
         this.index_ = JSON.parse(result);
-
         for (var i = 0; i < this.index_.entries.length; ++i) {
           this.index_.entries[i].id = this.id_;
         }
@@ -31,7 +30,7 @@ class DocSet {
 
   getTitle(path) {
     for (let i = 0; i < this.index_.entries.length; ++i) {
-      if (this.index_.entries[i].path == path) {
+      if (this.index_.entries[i].path === path) {
         return this.language_ === 'zh-CN' ? this.index_.entries[i].name : this.index_.entries[i].name.split(' ').shift();
       }
     }

@@ -1,32 +1,31 @@
-.element-helper-docs-container {
+.vant-helper-docs-container {
   background-color: white;
 }
 
-.element-helper-docs-container iframe {
-    position: absolute;
-    border: none;
+.vant-helper-docs-container.fixed {
+    position: fixed;
+    right: 0;
     left: 0;
+    bottom: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
 }
 
-.element-helper-docs-container .docs-notice {
+.vant-helper-docs-container .docs-notice {
   position: absolute;
   right: 10px;
-  background: #50bfff;
+  background: #4fc08d;
   color: white;
   padding: 2px 8px;
   border-radius: 2px;
   z-index: 9999;
 }
 
-.element-helper-docs-container .docs-notice a {
+.vant-helper-docs-container .docs-notice a {
   color: inherit;
   text-decoration: underline;
 }
 
-.element-helper-loading-mask, .element-helper-move-mask {
+.vant-helper-loading-mask, .vant-helper-move-mask {
     position: absolute;
     z-index: 10000;
     background-color: hsla(0,0%,100%,.9);
@@ -37,25 +36,25 @@
     left: 0;
     transition: opacity .3s
 }
-.element-helper-move-mask {
+.vant-helper-move-mask {
   display: none;
   background-color: hsla(0,0%,100%,0);
 }
 
-.element-helper-loading-mask.is-fullscreen {
+.vant-helper-loading-mask.is-fullscreen {
     position: fixed
 }
 
-.element-helper-loading-mask.is-fullscreen .element-helper-loading-spinner {
+.vant-helper-loading-mask.is-fullscreen .vant-helper-loading-spinner {
     margin-top: -25px
 }
 
-.element-helper-loading-mask.is-fullscreen .element-helper-loading-spinner .circular {
+.vant-helper-loading-mask.is-fullscreen .vant-helper-loading-spinner .circular {
     width: 50px;
     height: 50px
 }
 
-.element-helper-loading-spinner {
+.vant-helper-loading-spinner {
     top: 50%;
     margin-top: -21px;
     width: 100%;
@@ -63,28 +62,28 @@
     position: absolute
 }
 
-.element-helper-loading-spinner .element-helper-loading-text {
-    color: #20a0ff;
+.vant-helper-loading-spinner .vant-helper-loading-text {
+    color: #4fc08d;
     margin: 3px 0;
     font-size: 14px
 }
 
-.element-helper-loading-spinner .circular {
+.vant-helper-loading-spinner .circular {
     width: 42px;
     height: 42px;
     animation: loading-rotate 2s linear infinite
 }
 
-.element-helper-loading-spinner .path {
+.vant-helper-loading-spinner .path {
     animation: loading-dash 1.5s ease-in-out infinite;
     stroke-dasharray: 90,150;
     stroke-dashoffset: 0;
     stroke-width: 2;
-    stroke: #20a0ff;
+    stroke: #4fc08d;
     stroke-linecap: round
 }
 
-.element-helper-loading-fade-enter, .element-helper-loading-fade-leave-active {
+.vant-helper-loading-fade-enter, .vant-helper-loading-fade-leave-active {
     opacity: 0
 }
 

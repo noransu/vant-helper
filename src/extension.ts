@@ -1,16 +1,23 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { App, ElementDocsContentProvider, SCHEME, ElementCompletionItemProvider, webViewPanel } from './app';
+import {
+	App,
+	// ElementDocsContentProvider,
+	// SCHEME,
+	ElementCompletionItemProvider
+} from './app';
+
+import WebviewPanel from './webview';
 import Library from './library';
 
 export function activate(context: vscode.ExtensionContext) {
 	let library = new Library(context);
 	let app = new App();
 	app.setConfig();
-	let docs = new ElementDocsContentProvider();
+	// let docs = new ElementDocsContentProvider();
 	let completionItemProvider = new ElementCompletionItemProvider();
-	let registration = vscode.workspace.registerTextDocumentContentProvider(SCHEME, docs);
+	// let registration = vscode.workspace.registerTextDocumentContentProvider(SCHEME, docs);
 
 	let completion = vscode.languages.registerCompletionItemProvider([{
 		language: 'vue', scheme: 'file'
@@ -61,10 +68,13 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	let disposable2 = vscode.commands.registerCommand('vant-helper.openWebview', (uri) => {
-		webViewPanel(uri, context);
+		// webViewPanel(uri, context);
+		WebviewPanel.createOrShow(uri, context);
 	});
 
-	context.subscriptions.push(app, disposable, disposable2, registration, completion, vueLanguageConfig);
+	context.subscriptions.push(app, disposable, disposable2,
+		// registration,
+		completion, vueLanguageConfig);
 }
 
 // this method is called when your extension is deactivated
