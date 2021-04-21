@@ -1,7 +1,7 @@
 {
 	"name": "vant-helper",
 	"displayName": "vant-helper",
-	"description": "vant-ui 辅助插件",
+	"description": "A vscode extension for Vant-UI",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.30.0"
@@ -15,7 +15,7 @@
 		"onCommand:vant-helper.searchUnderCursor"
 	],
 	"main": "./dist/extension.js",
-	"icon": "vant-helper.png",
+	"icon": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b3c6bb9759f74ccb81fdb0d1610a515c~tplv-k3u1fbpfcp-watermark.image",
 	"contributes": {
 		"commands": [
 			{

@@ -1,70 +1,93 @@
-# vant-helper README
+# Vant-Helper
 
-This is the README for your extension "vant-helper". After writing up a brief description, we recommend including the following sections.
+> Vant-Helper is a VS Code extension for Vant-UI.
 
-## Features
+Vant-UI is a great library. More and more projects use it. So, For helping developer write more efficient by Vant-UI, Vant-Helper is born.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Feature
 
-For example if there is an image subfolder under your extension project workspace:
+* Document
 
-\!\[feature X\]\(images/feature-x.png\)
+* Autocomplete
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+	support vue, html
 
-## Requirements
+* Snippets
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
 
-## Extension Settings
+## Document
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+### Usage
 
-For example:
+1 - Move cursor to Vant-UI tag or select it
 
-This extension contributes the following settings:
+2 - Press default hot key `shift + cmd + z`(windows: `ctrl + shift + z`) or Press ⇧⌘P to bring up the Command Palette and then input `vant-helper.search`
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+3 - Show document view If complete matching,
+    or you should select tag you want to search
 
-## Known Issues
+4 - Enter and trigger document browser
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+![document](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1f49d1895794453db4354c105e58c04d~tplv-k3u1fbpfcp-watermark.image)
 
-## Release Notes
+### Version, Quotes and Language Switching
 
-Users appreciate release notes as you update your extension.
+1 - Enter `Preferences` -> `setting` or shortcut `cmd` + `,`
 
-### 1.0.0
+2 - Modify language, version or indentation size
+```javascript
+  "vant-helper.language": "zh-CN",
+  "vant-helper.version": "2",
+  "vant-helper.quotes": "double",    // html vue qoutes
+```
 
-Initial release of ...
+### Keymap
 
-### 1.0.1
+Default hot key is  `shift + cmd + z`( windows: `ctrl + shift+ z`). If it has conflicted with other software's hot key. You can customize it. see [keybindings](https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-shortcuts-editor)
 
-Fixed issue #.
 
-### 1.1.0
+## Autocomplete
 
-Added features X, Y, and Z.
+![autocomplete](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/83df636a3f6d4862ae81d096aaf892d9~tplv-k3u1fbpfcp-watermark.image)
 
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
+* Distinguish and auto complete property and method for every Vant-UI tag
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+## Snippets
 
-## Working with Markdown
+![snippets](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7d066d581bd48659b349c8b52867274~tplv-k3u1fbpfcp-watermark.image)
 
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+Support snippets list:
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
+* `dialog`
 
-### For more information
+  ```
+  this.$dialog.alert({
+    message: '',
+  })
+  ```
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+* `toast`
 
-**Enjoy!**
+  ```
+  this.$toast({
+    message: '',
+  })
+  ```
+
+* `notify`
+
+  ```
+  this.$notify({
+    type: '',
+    message: '',
+  })
+  ```
+
+## Contribution
+
+Your pull request will make Vant-Helper better.
+
+## LICENSE
+
+MIT
