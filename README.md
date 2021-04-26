@@ -1,5 +1,7 @@
 # Vant-Helper
 
+**English** | [中文](./README.zh-CN.md)
+
 > Vant-Helper is a VS Code extension for Vant-UI.
 
 Vant-UI is a great library. More and more projects use it. So, For helping developer write more efficient by Vant-UI, Vant-Helper is born.
@@ -28,13 +30,14 @@ Vant-UI is a great library. More and more projects use it. So, For helping devel
 
 4 - Enter and trigger document browser
 
-![document](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1f49d1895794453db4354c105e58c04d~tplv-k3u1fbpfcp-watermark.image)
+![document](https://cdn.jsdelivr.net/gh/noransu/images-myown@master/noransImage/usage.3o6dy34aat80.gif)
+
 
 ### Version, Quotes and Language Switching
 
 1 - Enter `Preferences` -> `setting` or shortcut `cmd` + `,`
 
-2 - Modify language, version or indentation size
+2 - Modify language, version or quotes
 ```javascript
   "vant-helper.language": "zh-CN",
   "vant-helper.version": "2",
@@ -48,14 +51,14 @@ Default hot key is  `shift + cmd + z`( windows: `ctrl + shift+ z`). If it has c
 
 ## Autocomplete
 
-![autocomplete](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/83df636a3f6d4862ae81d096aaf892d9~tplv-k3u1fbpfcp-watermark.image)
+![autocomplete](https://cdn.jsdelivr.net/gh/noransu/images-myown@master/noransImage/autoComplete.jvr10ydk88w.gif)
 
 * Distinguish and auto complete property and method for every Vant-UI tag
 
 
 ## Snippets
 
-![snippets](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7d066d581bd48659b349c8b52867274~tplv-k3u1fbpfcp-watermark.image)
+![snippets](https://cdn.jsdelivr.net/gh/noransu/images-myown@master/noransImage/snippets.6kx5xqdw42s0.gif)
 
 Support snippets list:
 
