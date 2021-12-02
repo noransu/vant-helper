@@ -421,13 +421,8 @@ export class ElementCompletionItemProvider implements CompletionItemProvider {
     if (!options && attrItem) {
       if (attrItem.type === 'boolean') {
         options = ['true', 'false'];
-      } else if (attrItem.type === 'icon') {
+      } else if (/icon/.test(attr)) {
         options = ATTRS['icons'];
-      } else if (attrItem.type === 'shortcut-icon') {
-        options = [];
-        ATTRS['icons'].forEach(icon => {
-          options.push(icon.replace(/^el-icon-/, ''));
-        });
       }
     }
     return options || [];
