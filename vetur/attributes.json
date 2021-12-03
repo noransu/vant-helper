@@ -45,6 +45,7 @@
   },
   "van-action-bar-button/type": {
     "type": "string",
+    "options": ["default", "primary", "info", "warning", "danger"],
     "description": "按钮类型，可选值为 `primary` `info` `warning` `danger`, 默认值: `default`"
   },
   "van-action-bar-button/color": {
@@ -345,10 +346,12 @@
   },
   "van-button/type": {
     "type": "string",
+    "options": ["default", "primary", "info", "warning", "danger"],
     "description": "类型，可选值为 `primary` `success` `warning` `danger`, 默认值: `default`"
   },
   "van-button/size": {
     "type": "string",
+    "options": ["normal", "large", "small", "mini"],
     "description": "尺寸，可选值为 `large` `small` `mini`, 默认值: `normal`"
   },
   "van-button/text": {
@@ -369,6 +372,7 @@
   },
   "van-button/icon-position": {
     "type": "string",
+    "options": ["left", "right"],
     "description": "图标展示位置，可选值为 `right`, 默认值: `left`"
   },
   "van-button/tag": {
@@ -413,6 +417,7 @@
   },
   "van-button/loading-type": {
     "type": "string",
+    "options": ["circular", "spinner"],
     "description": "[加载图标类型](#/zh-CN/loading)，可选值为 `spinner`, 默认值: `circular`"
   },
   "van-button/loading-size": {
@@ -509,6 +514,7 @@
   },
   "van-calendar/position": {
     "type": "string",
+    "options": ["bottom", "top", "right", "left"],
     "description": "弹出位置，可选值为 `top` `right` `left`, 默认值: `bottom`"
   },
   "van-calendar/round": {
@@ -689,6 +695,7 @@
   },
   "van-cell/arrow-direction": {
     "type": "string",
+    "options": ["right", "left", "up", "down"],
     "description": "箭头方向，可选值为 `left` `up` `down`, 默认值: `right`"
   },
   "van-cell/title-style": {
@@ -717,6 +724,7 @@
   },
   "van-checkbox/shape": {
     "type": "string",
+    "options": ["round", "square"],
     "description": "形状，可选值为 `square`, 默认值: `round`"
   },
   "van-checkbox/disabled": {
@@ -729,6 +737,7 @@
   },
   "van-checkbox/label-position": {
     "type": "string",
+    "options": ["right", "left"],
     "description": "文本位置，可选值为 `left`, 默认值: `right`"
   },
   "van-checkbox/icon-size": {
@@ -757,6 +766,7 @@
   },
   "van-checkbox-group/direction": {
     "type": "string",
+    "options": ["vertical", "horizontal"],
     "description": "排列方向，可选值为 `horizontal`, 默认值: `vertical`"
   },
   "van-checkbox-group/icon-size": {
@@ -805,6 +815,7 @@
   },
   "van-circle/stroke-linecap": {
     "type": "string",
+    "options": ["round", "sqaure", "butt"],
     "description": "进度条端点的形状，可选值为 `sqaure` `butt`, 默认值: `round`"
   },
   "van-circle/clockwise": {
@@ -821,10 +832,12 @@
   },
   "van-row/justify": {
     "type": "string",
+    "options": ["start", "end", "center", "space-around", "space-between"],
     "description": "主轴对齐方式，可选值为 `end` `center` <br> `space-around` `space-between`, 默认值: `start`"
   },
   "van-row/align": {
     "type": "string",
+    "options": ["top", "center", "bottom"],
     "description": "交叉轴对齐方式，可选值为 `center` `bottom`, 默认值: `top`"
   },
   "van-row/wrap": {
@@ -865,6 +878,7 @@
   },
   "van-collapse-item/size": {
     "type": "string",
+    "options": ["large"],
     "description": "标题栏大小，可选值为 `large`, 默认值: -"
   },
   "van-collapse-item/title": {
@@ -909,6 +923,7 @@
   },
   "van-contact-card/type": {
     "type": "string",
+    "options": ["add", "edit"],
     "description": "卡片类型，可选值为 `edit`, 默认值: `add`"
   },
   "van-contact-card/name": {
@@ -1081,6 +1096,7 @@
   },
   "van-datetime-picker/type": {
     "type": "string",
+    "options": ["datetime", "date", "time", "year-month", "month-day", "datehour"],
     "description": "时间类型，可选值为 `date` `time` <br> `year-month` `month-day` `datehour`, 默认值: `datetime`"
   },
   "van-datetime-picker/title": {
@@ -1117,6 +1133,7 @@
   },
   "van-datetime-picker/columns-order": {
     "type": "string[]",
+    "options": ["year", "month", "day", "hour", "minute"],
     "description": "自定义列排序数组, 子项可选值为<br> `year`、`month`、`day`、`hour`、`minute`, 默认值: -"
   },
   "van-datetime-picker/item-height": {
@@ -1173,10 +1190,12 @@
   },
   "van-dialog/message-align": {
     "type": "string",
+    "options": ["center", "left", "right"],
     "description": "内容水平对齐方式，可选值为 `left` `right`, 默认值: `center`"
   },
   "van-dialog/theme": {
     "type": "string",
+    "options": ["default", "round-button"],
     "description": "样式风格，可选值为 `round-button`, 默认值: `default`"
   },
   "van-dialog/show-confirm-button": {
@@ -1257,6 +1276,7 @@
   },
   "van-divider/content-position": {
     "type": "string",
+    "options": ["center", "left", "right"],
     "description": "内容位置，可选值为 `left` `right`, 默认值: `center`"
   },
   "van-dropdown-menu/active-color": {
@@ -1265,6 +1285,7 @@
   },
   "van-dropdown-menu/direction": {
     "type": "string",
+    "options": ["down", "up"],
     "description": "菜单展开方向，可选值为`up`, 默认值: `down`"
   },
   "van-dropdown-menu/z-index": {
@@ -1317,6 +1338,7 @@
   },
   "van-empty/image": {
     "type": "string",
+    "options": ["default", "error", "network", "search"],
     "description": "图片类型，可选值为 `error` `network` `search`，支持传入图片 URL, 默认值: `default`"
   },
   "van-empty/image-size": {
@@ -1341,10 +1363,12 @@
   },
   "van-field/type": {
     "type": "string",
+    "options": ["text", "tel", "digit", "number", "textarea", "password"],
     "description": "输入框类型, 可选值为 `tel` `digit`<br>`number` `textarea` `password` 等, 默认值: `text`"
   },
   "van-field/size": {
     "type": "string",
+    "options": ["large"],
     "description": "大小，可选值为 `large`, 默认值: -"
   },
   "van-field/maxlength": {
@@ -1417,6 +1441,7 @@
   },
   "van-field/error-message-align": {
     "type": "string",
+    "options": ["left", "center", "right"],
     "description": "错误提示文案对齐方式，可选值为 `center` `right`, 默认值: `left`"
   },
   "van-field/formatter": {
@@ -1425,10 +1450,12 @@
   },
   "van-field/format-trigger": {
     "type": "string",
+    "options": ["onChange", "onBlur"],
     "description": "格式化函数触发的时机，可选值为 `onBlur`, 默认值: `onChange`"
   },
   "van-field/arrow-direction": {
     "type": "string",
+    "options": ["right", "left", "up", "down"],
     "description": "箭头方向，可选值为 `left` `up` `down`, 默认值: `right`"
   },
   "van-field/label-class": {
@@ -1441,10 +1468,12 @@
   },
   "van-field/label-align": {
     "type": "string",
+    "options": ["left", "center", "right"],
     "description": "左侧文本对齐方式，可选值为 `center` `right`, 默认值: `left`"
   },
   "van-field/input-align": {
     "type": "string",
+    "options": ["left", "center", "right"],
     "description": "输入框对齐方式，可选值为 `center` `right`, 默认值: `left`"
   },
   "van-field/autosize": {
@@ -1477,18 +1506,22 @@
   },
   "van-form/label-align": {
     "type": "string",
+    "options": ["left", "center", "right"],
     "description": "\b 表单项 label 对齐方式，可选值为 `center` `right`, 默认值: `left`"
   },
   "van-form/input-align": {
     "type": "string",
+    "options": ["left", "center", "right"],
     "description": "输入框对齐方式，可选值为 `center` `right`, 默认值: `left`"
   },
   "van-form/error-message-align": {
     "type": "string",
+    "options": ["left", "center", "right"],
     "description": "错误提示文案对齐方式，可选值为 `center` `right`, 默认值: `left`"
   },
   "van-form/validate-trigger": {
     "type": "string",
+    "options": ["onBlur", "onChange", "onSubmit"],
     "description": "表单校验触发时机，可选值为 `onChange`、`onSubmit`，详见下表, 默认值: `onBlur`"
   },
   "van-form/colon": {
@@ -1553,6 +1586,7 @@
   },
   "van-grid/direction": {
     "type": "string",
+    "options": ["vertical", "horizontal"],
     "description": "格子内容排列的方向，可选值为 `horizontal`, 默认值: `vertical`"
   },
   "van-grid-item/text": {
@@ -1725,6 +1759,7 @@
   },
   "van-image-preview/close-icon-position": {
     "type": "string",
+    "options": ["top-right", "top-left", "bottom-right", "bottom-left"],
     "description": "关闭图标位置，可选值为 `top-left`<br>`bottom-left` `bottom-right`, 默认值: `top-right`"
   },
   "van-image-preview/transition": {
@@ -1797,6 +1832,7 @@
   },
   "van-list/direction": {
     "type": "string",
+    "options": ["down", "up"],
     "description": "滚动触发加载的方向，可选值为 `up`, 默认值: `down`"
   },
   "van-loading/color": {
@@ -1805,6 +1841,7 @@
   },
   "van-loading/type": {
     "type": "string",
+    "options": ["circular", "spinner"],
     "description": "类型，可选值为 `spinner`, 默认值: `circular`"
   },
   "van-loading/size": {
@@ -1861,6 +1898,7 @@
   },
   "van-notice-bar/mode": {
     "type": "string",
+    "options": ["closeable", "link"],
     "description": "通知栏模式，可选值为 `closeable` `link`, 默认值: `''`"
   },
   "van-notice-bar/text": {
@@ -1909,6 +1947,7 @@
   },
   "van-number-keyboard/theme": {
     "type": "string",
+    "options": ["default", "custom"],
     "description": "样式风格，可选值为 `custom`, 默认值: `default`"
   },
   "van-number-keyboard/maxlength": {
@@ -1993,6 +2032,7 @@
   },
   "van-pagination/mode": {
     "type": "string",
+    "options": ["multi", "simple"],
     "description": "显示模式，可选值为 `simple`, 默认值: `multi`"
   },
   "van-pagination/prev-text": {
@@ -2077,6 +2117,7 @@
   },
   "van-picker/toolbar-position": {
     "type": "string",
+    "options": ["top", "bottom"],
     "description": "顶部栏位置，可选值为 `bottom`, 默认值: `top`"
   },
   "van-picker/loading": {
@@ -2121,6 +2162,7 @@
   },
   "van-popover/theme": {
     "type": "string",
+    "options": ["light", "dark"],
     "description": "主题风格，可选值为 `dark`, 默认值: `light`"
   },
   "van-popover/trigger": {
@@ -2173,6 +2215,7 @@
   },
   "van-popup/position": {
     "type": "string",
+    "options": ["center", "top", "bottom", "right", "left"],
     "description": "弹出位置，可选值为 `top` `bottom` `right` `left`, 默认值: `center`"
   },
   "van-popup/overlay-class": {
@@ -2217,6 +2260,7 @@
   },
   "van-popup/close-icon-position": {
     "type": "string",
+    "options": ["top-right", "top-left", "bottom-left", "bottom-right"],
     "description": "关闭图标位置，可选值为 `top-left`<br>`bottom-left` `bottom-right`, 默认值: `top-right`"
   },
   "van-popup/transition": {
@@ -2317,6 +2361,7 @@
   },
   "van-radio/shape": {
     "type": "string",
+    "options": ["round", "square"],
     "description": "形状，可选值为 `square`, 默认值: `round`"
   },
   "van-radio/disabled": {
@@ -2329,6 +2374,7 @@
   },
   "van-radio/label-position": {
     "type": "string",
+    "options": ["right", "left"],
     "description": "文本位置，可选值为 `left`, 默认值: `right`"
   },
   "van-radio/icon-size": {
@@ -2349,6 +2395,7 @@
   },
   "van-radio-group/direction": {
     "type": "string",
+    "options": ["vertical", "horizontal"],
     "description": "排列方向，可选值为`horizontal`, 默认值: `vertical`"
   },
   "van-radio-group/icon-size": {
@@ -2421,6 +2468,7 @@
   },
   "van-search/shape": {
     "type": "string",
+    "options": ["square", "round"],
     "description": "搜索框形状，可选值为 `round`, 默认值: `square`"
   },
   "van-search/background": {
@@ -2481,10 +2529,12 @@
   },
   "van-search/format-trigger": {
     "type": "string",
+    "options": ["onChange", "onBlur"],
     "description": "格式化函数触发的时机，可选值为 `onBlur`, 默认值: `onChange`"
   },
   "van-search/input-align": {
     "type": "string",
+    "options": ["left", "center", "right"],
     "description": "输入框内容对齐方式，可选值为 `center` `right`, 默认值: `left`"
   },
   "van-search/left-icon": {
@@ -2625,6 +2675,7 @@
   },
   "van-skeleton/avatar-shape": {
     "type": "string",
+    "options": ["round", "square"],
     "description": "头像占位图形状，可选值为 `square`, 默认值: `round`"
   },
   "van-slider/v-model": {
@@ -2713,6 +2764,7 @@
   },
   "van-stepper/theme": {
     "type": "string",
+    "options": ["round"],
     "description": "样式风格，可选值为 `round`, 默认值: -"
   },
   "van-stepper/placeholder": {
@@ -2769,6 +2821,7 @@
   },
   "van-steps/direction": {
     "type": "string",
+    "options": ["horizontal", "vertical"],
     "description": "步骤条方向，可选值为 `vertical`, 默认值: `horizontal`"
   },
   "van-steps/active-icon": {
@@ -2793,6 +2846,7 @@
   },
   "van-sticky/position": {
     "type": "string",
+    "options": ["top", "bottom"],
     "description": "吸附位置，可选值为 `bottom`, 默认值: `top`"
   },
   "van-sticky/offset-top": {
@@ -2829,6 +2883,7 @@
   },
   "van-submit-bar/text-align": {
     "type": "string",
+    "options": ["right", "left"],
     "description": "金额文案对齐方向，可选值为 `left`, 默认值: `right`"
   },
   "van-submit-bar/button-text": {
@@ -2977,6 +3032,7 @@
   },
   "van-tabs/type": {
     "type": "string",
+    "options": ["line", "card"],
     "description": "样式风格类型，可选值为 `card`, 默认值: `line`"
   },
   "van-tabs/color": {
@@ -3161,10 +3217,12 @@
   },
   "van-tag/type": {
     "type": "string",
+    "options": ["default", "primary", "success", "warning", "danger"],
     "description": "类型，可选值为 `primary` `success` `danger` `warning`, 默认值: `default`"
   },
   "van-tag/size": {
     "type": "string",
+    "options": ["large", "medium"],
     "description": "大小, 可选值为 `large` `medium`, 默认值: -"
   },
   "van-tag/color": {
@@ -3269,6 +3327,7 @@
   },
   "van-uploader/capture": {
     "type": "string",
+    "options": ["camera"],
     "description": "图片选取模式，可选值为 `camera` (直接调起摄像头), 默认值: -"
   },
   "van-uploader/after-read": {
@@ -3293,6 +3352,7 @@
   },
   "van-uploader/result-type": {
     "type": "string",
+    "options": ["dataUrl", "file", "text"],
     "description": "文件读取结果类型，可选值为 `file` `text`, 默认值: `dataUrl`"
   },
   "van-uploader/upload-text": {
@@ -3301,10 +3361,12 @@
   },
   "van-uploader/image-fit": {
     "type": "string",
+    "options": ["cover", "contain", "fill", "none", "scale-down"],
     "description": "预览图裁剪模式，可选值见 [Image](#/zh-CN/image) 组件, 默认值: `cover`"
   },
   "van-uploader/upload-icon": {
     "type": "string",
     "description": "上传区域[图标名称](#/zh-CN/icon)或图片链接, 默认值: `photograph`"
-  }
+  },
+  "icons": ["arrow", "arrow-left", "arrow-up", "arrow-down", "success", "cross", "plus", "minus", "fail", "circle", "location", "like", "star", "phone", "setting", "fire", "coupon", "cart", "shopping-cart", "cart-circle", "friends", "comment", "gem", "gift", "point-gift", "send-gift", "service", "bag", "todo-list", "balance-list", "clear", "clock", "question", "checked", "add", "gold-coin", "info", "play-circle", "pause-circle", "stop-circle", "warning", "phone-circle", "music", "smile", "thumb-circle", "comment-circle", "browsing-history", "underway", "more", "video", "shop", "shop-collect", "share", "chat", "smile-comment", "vip-card", "award", "diamond", "volume", "cluster", "wap-home", "photo", "gift-card", "expand", "medal", "good-job", "manager", "label", "bookmark", "bill", "hot", "hot-sale", "new", "new-arrival", "goods-collect", "eye", "delete", "font", "wechat", "wechat-pay", "alipay", "photograph", "youzan-shield", "umbrella-circle", "bell", "printer", "map-marked", "card", "add-square", "live", "lock", "audio", "graphic", "column", "invitation", "play", "pause", "stop", "weapp-nav", "ascending", "descending", "bars", "wap-nav", "enlarge", "photo-fail", "sort"]
 }
